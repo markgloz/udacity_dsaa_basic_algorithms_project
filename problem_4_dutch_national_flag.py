@@ -5,7 +5,6 @@ def sort_012(input_list):
     Args:
        input_list(list): List to be sorted
     """
-
     index = 0
     next_index_0 = 0
     next_index_2 = len(input_list) - 1

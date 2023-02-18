@@ -21,3 +21,7 @@ The base case is if the mid element of the current search range equals the numbe
 The solution has an average time complexity of O(n logn) due to the quicksort method, which has an average space complexity is O(log n) due to the recursion depth. The overall space complexity however is O(n) due to the string addition of each element in the input array. This is also the worst case space complexity of quicksort, O(n), if a bad pivot is chosen at each recursion.
 
 Mergesort could have also been used. This has the advantage of worst case time complexity being O(n logn) whilst quicksort has worst case O(n2) if a bad pivot is chosen at each recursion. However, the space complexity of merge sort is O(n) whilst quick-sort is an in-place sorting method, so has O(1) space complexity at each recursion. Quicksort was chosen due to the same average time complexity, if not slightly faster than mergesort, and requires less memory to run on average.
+
+## Problem 4: Dutch National Flag Problem
+
+The solution has a time complexity of Θ(n) and a space complexity of Θ(1). The solution sorts the array in-place in a single traversal. In-place sorting was chosen over creating a new array because the latter would increase the space complexity to Θ(n).
