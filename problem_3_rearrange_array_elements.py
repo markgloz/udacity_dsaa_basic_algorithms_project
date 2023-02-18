@@ -10,7 +10,7 @@ def rearrange_digits(input_list):
     quicksort(input_list) # O(n logn) time complexity; O(log n) space complexity due to recursion depth
     number_1 = ''
     number_2 = ''
-    for index in range(len(input_list) - 1, -1, -1):
+    for index in range(len(input_list) - 1, -1, -1): # O(n) time complexity; O(n) space complexity
         if not input_list[index]:
             continue
         if index % 2 == 0: # Even index
