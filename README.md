@@ -25,3 +25,11 @@ Mergesort could have also been used. This has the advantage of worst case time c
 ## Problem 4: Dutch National Flag Problem
 
 The solution has a time complexity of Θ(n) and a space complexity of Θ(1). The solution sorts the array in-place in a single traversal. In-place sorting was chosen over creating a new array because the latter would increase the space complexity to Θ(n).
+
+## Problem 5: Autocomplete with Tries
+
+The solution has a time complexity of O(n) and a space complexity of O(n).
+
+Finding a Trie node for a given prefix takes O(n) time, where n is the length of the prefix.
+Finding the suffixes for a given prefix node then takes O(n) time, where n is the total number of characters in the trie, in the worst case when the prefix matches all words in the trie.
+Each recursion into a new child TrieNode adds a frame to the recursion stack, and as every node is visited in the worst case, this causes the linear space complexity.
