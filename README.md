@@ -37,3 +37,11 @@ Each recursion into a new child TrieNode adds a frame to the recursion stack, an
 ## Problem 6: Max and Min in an Unsorted Array
 
 The solution has a time complexity of Θ(n) and a space complexity of Θ(1). The solution runs in a single traversal of the array. This method was chosen over the alternative, which was to build functionality to find the kth smallest element for k = 1 and k = len(array) - 1. This would be achieved through a recursive divide and conquer method. The downside to this divide and conquer method is, although it would also have a time complexity of O(n), it would go through multiple recursions to find a good pivot and the kth element. The space complexity would also be larger due to the recursive calls.
+
+## Problem 7: HTTP Router using a Trie
+
+The solution has a time complexity of O(n) and a space complexity of O(n), with similar reasons to Problem 5.
+
+Adding a handler takes O(n) time in the worst case. Looking up a handler also takes O(n) time in the worst case. Here, n represents the number of sub-paths that exist within the router.
+
+The function to split paths was incorporated within the RouteTrie class instead of the Router class so that the RouteTrie class works as intended without relying on the implementation of the Router class.
