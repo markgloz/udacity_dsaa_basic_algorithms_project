@@ -3,17 +3,17 @@ class RouteTrie:
     RouteTrie will store routes and their associated handlers.
     """
     def __init__(self, not_found_handler) -> None:
-        self.root = RouteTrieNode(not_found_handler = not_found_handler)
+        self.root = RouteTrieNode()
         self.not_found_handler = not_found_handler
     
-    def insert(self, route, handler = None):
+    def insert(self, route, handler):
         node = self.root
         paths = self._get_paths(route)
         for path in paths:
             if path not in node.children:
                 node.insert(path)
             node = node.children[path]
-        node._add_handler(route, handler)
+        node.handler = handler
 
     def find(self, route):
         if route is None:
@@ -24,7 +24,10 @@ class RouteTrie:
             if path not in node.children:
                 return self.not_found_handler
             node = node.children[path]
-        return node._get_handler()
+        if node.handler:
+            return node.handler
+        else:
+            return self.not_found_handler
     
     def _get_paths(self, route):
         paths = []
@@ -45,28 +48,12 @@ class RouteTrieNode:
     """
     RouteTrieNode will be a node in RouteTrie and have the handler as an attribute.
     """
-    def __init__(self, handler = None, not_found_handler = "Handler not found") -> None:
+    def __init__(self, handler = None) -> None:
         self.handler = handler
         self.children = {}
-        self.not_found_handler = not_found_handler
     
     def insert(self, route):
-        self.children[route] = RouteTrieNode(not_found_handler=self.not_found_handler)
-    
-    def _get_handler(self):
-        if self.handler:
-            return self.handler
-        else:
-            return self.not_found_handler
-
-    def _add_handler(self, route, handler):
-        if not handler:
-            if route != '/':
-                self.handler = handler
-            else:
-                self.handler = f"Handler for the Home Page!"
-        else:
-            self.handler = handler
+        self.children[route] = RouteTrieNode()
 
 
 class Router:
@@ -75,21 +62,11 @@ class Router:
         self.add_handler('/', root_handler)
     
     def add_handler(self, path, handler):
-        if not path:
-            return
-        self.route_trie.insert(path, handler)
+        if path is not None:
+            self.route_trie.insert(path, handler)
     
     def lookup(self, path):
         return self.route_trie.find(path)
-
-# Development tests
-route_trie = RouteTrie("Handler for 404 Page not found")
-print(route_trie.find('/')) # Handler for 404 Page not found
-route_trie.insert('/')
-route_trie.insert('/about/me')
-print(route_trie.find('/')) # Handler for the Home Page!
-print(route_trie.find('/about')) # Handler not found
-print(route_trie.find('/about/me')) # Handler for /about/me
 
 # Supplied tests
 
@@ -112,16 +89,14 @@ print(router.lookup("/home/my/awesome/blob")) # blog handler
 
 # Test 2 - Null
 router.add_handler("/some/path", None)
-print(router.lookup("/home/my/awesome/blob"))
 router.add_handler(None, "some handler")
-print(router.lookup("/home/my/awesome/blob"))
 
 print(router.lookup("/some/path")) # not found handler
 print(router.lookup(None)) # not found handler
 
 # Test 3 - Empty
 router.add_handler("", "empty handler")
-print(router.lookup("")) # root handler
+print(router.lookup("")) # empty handler (overwrites root handler)
 
 # Test 4 - Large value
 router.add_handler("/some/very/long/path/that/goes/to/some/handler", "handler for long path")
