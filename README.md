@@ -33,3 +33,7 @@ The solution has a time complexity of O(n) and a space complexity of O(n).
 Finding a Trie node for a given prefix takes O(n) time, where n is the length of the prefix.
 Finding the suffixes for a given prefix node then takes O(n) time, where n is the total number of characters in the trie, in the worst case when the prefix matches all words in the trie.
 Each recursion into a new child TrieNode adds a frame to the recursion stack, and as every node is visited in the worst case, this causes the linear space complexity.
+
+## Problem 6: Max and Min in an Unsorted Array
+
+The solution has a time complexity of Θ(n) and a space complexity of Θ(1). The solution runs in a single traversal of the array. This method was chosen over the alternative, which was to build functionality to find the kth smallest element for k = 1 and k = len(array) - 1. This would be achieved through a recursive divide and conquer method. The downside to this divide and conquer method is, although it would also have a time complexity of O(n), it would go through multiple recursions to find a good pivot and the kth element. The space complexity would also be larger due to the recursive calls.
